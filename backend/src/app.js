@@ -14,6 +14,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    next();
+});
+
 // Basic Health Check Route
 app.get('/api/health', (req, res) => {
     res.status(200).json({ status: 'OK', message: 'Gemini Chatbot API is running.' });
